@@ -7,8 +7,8 @@
 <body>
 <script>
 let num=[3,5,4,2,7,6,9];
-let max_val=num.reduce(function (accumulator,element){
-    return(accumulator>element)?accumulator:element
+let max_val=num.reduce(function (a,b){
+    return(a>b)?a:b
 });
 //lệnh reduce là duyệt từ trái qua phải để lấy ra một pt duy nhất
 console.log(num);
@@ -24,7 +24,6 @@ function maxElement(array) {
     }
     document.write("max_index=",max_index)
 }
-
 maxElement(num)
 </script>
 </body>

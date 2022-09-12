@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let mang =prompt('nhập').trim().split("")
+    let demso=0;
+    // let index=0;
+    for (let i = 0; i < mang.length; i++) {
+        if (mang[i]==' '){
+            continue
+        }else {
+            // index=mang[i];
+            demso+=1
+            console.log(`Số thứ tự ${i+1} là: ${mang[i]}`)
+        }
+    }
+    document.write(`Số thứ tự trong mảng là ${demso}`)
+</script>
+</body>
+</html>
