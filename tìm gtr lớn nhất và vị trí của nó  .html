@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+let num=[3,5,4,2,7,6,9];
+let max_val=num.reduce(function (accumulator,element){
+    return(accumulator>element)?accumulator:element
+});
+//lệnh reduce là duyệt từ trái qua phải để lấy ra một pt duy nhất
+console.log(num);
+document.write("max=",max_val+"<br>");
+function maxElement(array) {
+    let max=array[0];
+    let max_index=0;
+    for (let i = 0; i < array.length ; i++) {
+        if (max<array[i]){
+            max=array[i]
+            max_index=i
+        }
+    }
+    document.write("max_index=",max_index)
+}
+
+maxElement(num)
+</script>
+</body>
+</html>

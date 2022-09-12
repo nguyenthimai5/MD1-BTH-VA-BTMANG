@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    let ta = ["one", "two", "three","rice","follow","mom","hello"]
+    let tv = ["một", "hai", "ba","cơm","theo dõi","mẹ","xin chào"]
+
+    function soTu() {
+        let keyWord = prompt('mời nhập vào từ cần tìm')
+        for (let i = 0; i <ta.length;i++) {
+            if (ta[i] == keyWord)
+                return i;
+            }
+                return -1;
+
+        }
+
+    function transLate() {
+        let i = soTu();
+        if (i == -1) {
+            alert("từ bạn cần tìm không có trong từ điển ")
+        } else {
+            alert('từ này có tiếng việt là : ' + tv[i])
+        }
+
+    }
+
+    transLate();
+    /*  return là để khai báo biến rồi thoát ra
+     luôn có một phần công dụng giống break còn dùng
+     alert thì không thoát ra nó sẽ chạy hết lệnh*/
+
+</script>
+</body>
+</html>

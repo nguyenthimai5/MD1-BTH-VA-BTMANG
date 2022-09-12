@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tr {
+            text-align: center;
+        }
+
+        input {
+            width: 400px;
+            border-radius: 15%;
+        }
+
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">Gương mặt vàng của nhà BIGHIT</h1>
+<label id="validate"></label><br>
+<input id="newStudent" type="text" placeholder="Vui lòng nhập dữ liệu....">
+<button onclick="createStudent()" style="background-color: green; color: white">Create Student</button>
+<input placeholder="Nhập dữ liệu bạn muốn tìm kiếm....." id="search" type="text" oninput="actionSearch()">
+<button style="background-color: blueviolet; color: white" onclick="actionSearch()">Search</button>
+<table border="1" style="width: 100%">
+    <tr>
+        <th>STT</th>
+        <th>NAME</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+    </tr>
+    <tbody id="drawTable">
+    <!--    <tr>-->
+    <!--        <td>1</td>-->
+    <!--        <td>TAE HYUNG</td>-->
+    <!--    </tr>-->
+    <!--    <tr>-->
+    <!--        <td>2</td>-->
+    <!--        <td>JUNG KOOK</td>-->
+    <!--    </tr>-->
+    </tbody>
+
+</table>
+<script>
+    //1. SHOW LIST STUDENT R - CRUD
+    let studentsList = ['JIN', 'TAE HYUNG','JUNG KOOK', 'JIMIN']
+
+    function showListStudent() {
+        let drawTable = '';
+        for (let i = 0; i < studentsList.length; i++) {
+            // let j = i+1;
+            //Cách 1: Dùng cách ' ' thông thường biding qua ++
+            // drawTable+='<tr>'+
+            //     '<td>'+(i+1)+'</td>'+
+            //     '<td>'+studentsList[i]+'</td>'+
+            //     '</tr>'
+
+            //Cách 2: Dùng string template `` biding biến qua ${}
+            drawTable += `<tr>
+                    <td>${i + 1}</td>
+                    <td>${studentsList[i]}</td>
+                    <td><button style="background-color: palevioletred; color: white" onclick="updateStudent(${i})">Edit</button></td>
+                    <td><button style="background-color: crimson; color: white" onclick="deleteStudent(${i})">Delete</button></td>
+                    </tr>`
+        }
+        document.getElementById('drawTable').innerHTML = drawTable;
+    }
+
+    showListStudent();
+
+    //2. Xây dựng hàm Create Student (C - CRUD)
+    function createStudent() {
+        let newStudent = document.getElementById('newStudent').value;
+        if (newStudent.trim() === '') {
+            document.getElementById('validate').innerHTML = '<label style="color: red">Dữ liệu đang rỗng!Vui lòng nhập dữ liệu</label>'
+        } else {
+            studentsList.push(newStudent);
+            document.getElementById('validate').innerHTML = '<label style="color: cornflowerblue">Thêm thành công!</label>'
+            showListStudent();
+        }
+    }
+
+    //3. Xây dựng hàm Update Student (U -CRUD)
+    function updateStudent(id) {
+        console.log('id ====== ', id)
+        let updateStudent = prompt('Enter the new Student to Update: ', 'Old Name: ' + studentsList[id])
+        if (updateStudent.trim() === '') {
+            document.getElementById('validate').innerHTML = '<label style="color:red ">Dữ liệu đang rỗng!Vui lòng nhập dữ liệu</label>'
+        } else {
+            if (updateStudent === studentsList[id]) {
+                document.getElementById('validate').innerHTML = '<label style="color: blue">Tên này đã có trong danh sách! Vui lòng nhập tên khác!</label>'
+            } else {
+                studentsList[id] = updateStudent;
+                document.getElementById('validate').innerHTML = '<label style="color: green">Sửa thành công!</label>'
+                showListStudent();
+            }
+        }
+    }
+
+    //4. Xây dựng hàm Delete Student (D- CRUD)
+    function deleteStudent(id) {
+        if(confirm('Are you sure delete ?')){
+            studentsList.splice(id,1)
+            document.getElementById('validate').innerHTML = '<label style="color: blue">Xoá thành công!</label>'
+            showListStudent();
+        } else {
+            document.getElementById('validate').innerHTML = '<label style="color: red">Đổi ý nhanh thế!</label>'
+        }
+    }
+
+    //5. Xây dựng chức năng tìm kiếm Search:
+    let listStudentSearch = [];
+    function actionSearch() {
+        listStudentSearch = [];
+        let search = document.getElementById('search').value;
+        //TÌM KIẾM TUYỆT ĐỐI ĐÚNG CẢ VỚI CHỮ HOA VÀ CHỮ THƯỜNG
+        // if(search.trim()===''){
+        //     showListStudent();
+        //     return;
+        // } else {
+        //     for (let i = 0; i < studentsList.length; i++) {
+        //         if(search.toLowerCase()===studentsList[i].toLowerCase()){
+        //             listStudentSearch.push(studentsList[i])
+        //         }
+        //     }
+        // }
+
+        //TÌM KIẾM TƯƠNG ĐỐI
+        if(search.trim()===''){
+            showListStudent();
+            return
+        } else {
+            for (let i = 0; i < studentsList.length; i++) {
+                if(studentsList[i].search(search)!=-1){
+                    listStudentSearch.push(studentsList[i])
+                }
+            }
+        }
+        showListSearch();
+    }
+    function showListSearch() {
+        let drawTable = '';
+        for (let i = 0; i < listStudentSearch.length; i++) {
+            // let j = i+1;
+            //Cách 1: Dùng cách ' ' thông thường biding biến qua ++
+            // drawTable+='<tr>'+
+            //     '<td>'+(i+1)+'</td>'+
+            //     '<td>'+studentsList[i]+'</td>'+
+            //     '</tr>'
+
+            //Cách 2: Dùng string template `` biding biến qua ${}
+            drawTable += `<tr>
+                    <td>${i + 1}</td>
+                    <td>${listStudentSearch[i]}</td>
+                    <td><button style="background-color: blue; color: whitesmoke" onclick="updateStudent(${i})">Edit</button></td>
+                    <td><button style="background-color: green; color: white" onclick="deleteStudent(${i})">Delete</button></td>
+                    </tr>`
+        }
+        document.getElementById('drawTable').innerHTML = drawTable;
+    }
+
+
+
+</script>
+</body>
+</html>
